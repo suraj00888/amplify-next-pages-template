@@ -3,7 +3,10 @@ backend:
   phases:
     preBuild:
       commands:
-        - npm install -g aws-cdk@latest  # ✅ This line fixes the CDK version mismatch
+        # Forcefully upgrade AWS CDK CLI before anything else
+        - npm uninstall -g aws-cdk || true
+        - npm install -g aws-cdk@latest
+        - cdk --version
     build:
       commands:
         - npm ci --cache .npm --prefer-offline
